@@ -18,10 +18,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpSensorSpinner() {
+        ArrayAdapter<String> sensorsAdapter = getSensorsAdapter();
+        Spinner sensorSpinner = findViewById(R.id.sensorsSpinner);
+        sensorSpinner.setAdapter(sensorsAdapter);
+    }
+
+    private ArrayAdapter<String> getSensorsAdapter() {
         List<String> sensors = Arrays.asList("io 1", "io 2", "io 3");
         ArrayAdapter<String> sensorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensors);
         sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        Spinner sensorSpinner = findViewById(R.id.sensorsSpinner);
-        sensorSpinner.setAdapter(sensorsAdapter);
+        return sensorsAdapter;
     }
 }
