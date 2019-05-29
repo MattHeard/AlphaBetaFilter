@@ -18,9 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpSensorSpinner() {
-        ArrayAdapter<String> sensorsAdapter = getSensorsAdapter();
-        Spinner sensorSpinner = getSensorsSpinner();
-        sensorSpinner.setAdapter(sensorsAdapter);
+        getSensorsSpinner().setAdapter(getSensorsAdapter());
     }
 
     private Spinner getSensorsSpinner() {
