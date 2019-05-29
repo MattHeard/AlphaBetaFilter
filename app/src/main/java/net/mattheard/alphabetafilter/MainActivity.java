@@ -14,6 +14,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setUpSensorSpinner();
+    }
+
+    private void setUpSensorSpinner() {
         List<String> sensors = Arrays.asList("io 1", "io 2", "io 3");
         ArrayAdapter<String> sensorsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensors);
         sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
