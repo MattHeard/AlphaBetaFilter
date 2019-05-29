@@ -23,6 +23,5 @@ public class MainActivity extends AppCompatActivity {
         sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Spinner sensorSpinner = findViewById(R.id.sensorsSpinner);
         sensorSpinner.setAdapter(sensorsAdapter);
-        sensorSpinner.setSelection(0);
     }
 }
