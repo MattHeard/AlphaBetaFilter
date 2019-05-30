@@ -26,10 +26,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> getSensorsAdapter() {
-        List<String> sensors = getSensors();
-        ArrayAdapter<String> sensorsAdapter = getNewSpinnerAdapter(sensors);
-        sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return sensorsAdapter;
+        return getNewSpinnerAdapter(getSensors());
     }
 
     private List<String> getSensors() {
@@ -37,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
-        return new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensors);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensors);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
     }
 }
