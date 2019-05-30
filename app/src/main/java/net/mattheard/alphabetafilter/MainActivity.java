@@ -26,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> getSensorsAdapter() {
-        List<String> sensors = Arrays.asList("io 1", "io 2", "io 3");
+        List<String> sensors = getSensors();
         ArrayAdapter<String> sensorsAdapter = getNewSpinnerAdapter(sensors);
         sensorsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return sensorsAdapter;
+    }
+
+    private List<String> getSensors() {
+        return Arrays.asList("io 1", "io 2", "io 3");
     }
 
     private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
