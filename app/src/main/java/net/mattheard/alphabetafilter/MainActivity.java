@@ -48,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sensors);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                sensors);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
     }
