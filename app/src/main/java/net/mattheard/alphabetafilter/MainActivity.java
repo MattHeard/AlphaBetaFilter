@@ -10,6 +10,8 @@ import android.widget.Spinner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
     private List<String> getSensorNames() {
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         List<Sensor> sensors = sensorManager.getDynamicSensorList(Sensor.TYPE_ALL);
-        sensors.stream().map(new Function<Sensor, String>() {
+        Stream<String> nameStream = sensors.stream().map(new Function<Sensor, String>() {
 
             @Override
             public String apply(Sensor sensor) {
                 return sensor.getName();
             }
         });
+        nameStream.collect(Collectors.toList());
         return Arrays.asList("io 1", "io 2", "io 3");
     }
 
