@@ -32,13 +32,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<String> getSensorNames() {
-        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
         List<String> names = new ArrayList<>();
-        for (Sensor sensor : sensors) {
+        for (Sensor sensor : getSensors()) {
             names.add(sensor.getName());
         }
         return names;
+    }
+
+    private List<Sensor> getSensors() {
+        return getSensorManager().getSensorList(Sensor.TYPE_ALL);
+    }
+
+    private SensorManager getSensorManager() {
+        return (SensorManager) getSystemService(SENSOR_SERVICE);
     }
 
     private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
