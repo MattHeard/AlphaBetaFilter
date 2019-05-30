@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
     private List<String> getSensorNames() {
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        List<Sensor> sensors = sensorManager.getDynamicSensorList(Sensor.TYPE_ALL);
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
         List<String> names = new ArrayList<>();
         for (Sensor sensor : sensors) {
             names.add(sensor.getName());
         }
-        return Arrays.asList("io 1", "io 2", "io 3");
+        return names;
     }
 
     private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
