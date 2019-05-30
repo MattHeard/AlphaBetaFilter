@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Alpha Beta Filter</string>
     <string name="sensor_label">Sensor</string>
+    <string name="initial_model_label">Initial model</string>
 </resources>
