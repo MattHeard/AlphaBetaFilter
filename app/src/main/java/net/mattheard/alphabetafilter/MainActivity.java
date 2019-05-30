@@ -1,5 +1,7 @@
 package net.mattheard.alphabetafilter;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<String> getSensors() {
+        SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        List<Sensor> sensors = sensorManager.getDynamicSensorList(Sensor.TYPE_ALL);
         return Arrays.asList("io 1", "io 2", "io 3");
     }
 
