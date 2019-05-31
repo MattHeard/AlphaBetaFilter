@@ -75,14 +75,14 @@ public class MainActivity extends AppCompatActivity {
         set.data(seriesData);
 
         // Q: What is a Mapping?
-        Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
-        Mapping series2Mapping = set.mapAs("{ x: 'x', value: 'value2' }");
-        Mapping series3Mapping = set.mapAs("{ x: 'x', value: 'value3' }");
+        Mapping modelDataMapping = set.mapAs("{ x: 'x', value: 'model' }");
+        Mapping measurementDataMapping = set.mapAs("{ x: 'x', value: 'measurement' }");
+        Mapping estimateDataMapping = set.mapAs("{ x: 'x', value: 'estimate' }");
 
         // Q: What does line() do here?
-        chart.line(series1Mapping);
-        chart.line(series2Mapping);
-        chart.line(series3Mapping);
+        chart.line(modelDataMapping);
+        chart.line(measurementDataMapping);
+        chart.line(estimateDataMapping);
 
         // Q: What does setChart() do here?
         chartView.setChart(chart);
@@ -115,10 +115,10 @@ public class MainActivity extends AppCompatActivity {
         addDataEntry(seriesData, "2009", 12.0, 22.5, 8.9);
     }
 
-    private void addDataEntry(List<DataEntry> seriesData, String label, double value1, double value2, double value3) {
-        ValueDataEntry entry = new ValueDataEntry(label, value1);
-        entry.setValue("value2", value2);
-        entry.setValue("value3", value3);
+    private void addDataEntry(List<DataEntry> seriesData, String label, double model, double measurement, double estimate) {
+        ValueDataEntry entry = new ValueDataEntry(label, model);
+        entry.setValue("measurement", measurement);
+        entry.setValue("estimate", estimate);
         seriesData.add(entry);
     }
 }
