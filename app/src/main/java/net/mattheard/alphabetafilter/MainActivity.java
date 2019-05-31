@@ -28,6 +28,42 @@ public class MainActivity extends AppCompatActivity {
         setUpChart();
     }
 
+    private void setUpSensorsSpinner() {
+        getSensorsSpinner().setAdapter(getSensorsAdapter());
+    }
+
+    private Spinner getSensorsSpinner() {
+        return findViewById(R.id.sensorsSpinner);
+    }
+
+    private ArrayAdapter<String> getSensorsAdapter() {
+        return getNewSpinnerAdapter(getSensorNames());
+    }
+
+    private List<String> getSensorNames() {
+        List<String> names = new ArrayList<>();
+        for (Sensor sensor : getSensors()) {
+            names.add(sensor.getName());
+        }
+        return names;
+    }
+
+    private List<Sensor> getSensors() {
+        return getSensorManager().getSensorList(Sensor.TYPE_ALL);
+    }
+
+    private SensorManager getSensorManager() {
+        return (SensorManager) getSystemService(SENSOR_SERVICE);
+    }
+
+    private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item,
+                sensors);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
+    }
+
     private void setUpChart() {
         AnyChartView chartView = findViewById(R.id.chart);
         Cartesian chart = AnyChart.line();
@@ -72,41 +108,5 @@ public class MainActivity extends AppCompatActivity {
         entry.setValue("value2", value2);
         entry.setValue("value3", value3);
         seriesData.add(entry);
-    }
-
-    private void setUpSensorsSpinner() {
-        getSensorsSpinner().setAdapter(getSensorsAdapter());
-    }
-
-    private Spinner getSensorsSpinner() {
-        return findViewById(R.id.sensorsSpinner);
-    }
-
-    private ArrayAdapter<String> getSensorsAdapter() {
-        return getNewSpinnerAdapter(getSensorNames());
-    }
-
-    private List<String> getSensorNames() {
-        List<String> names = new ArrayList<>();
-        for (Sensor sensor : getSensors()) {
-            names.add(sensor.getName());
-        }
-        return names;
-    }
-
-    private List<Sensor> getSensors() {
-        return getSensorManager().getSensorList(Sensor.TYPE_ALL);
-    }
-
-    private SensorManager getSensorManager() {
-        return (SensorManager) getSystemService(SENSOR_SERVICE);
-    }
-
-    private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
-                sensors);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        return adapter;
     }
 }
