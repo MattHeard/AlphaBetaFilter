@@ -68,6 +68,19 @@ public class MainActivity extends AppCompatActivity {
         AnyChartView chartView = findViewById(R.id.chart);
         Cartesian chart = AnyChart.line();
         List<DataEntry> seriesData = new ArrayList<>();
+        addDataEntries(seriesData);
+        Set set = Set.instantiate();
+        set.data(seriesData);
+        Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
+        Mapping series2Mapping = set.mapAs("{ x: 'x', value: 'value2' }");
+        Mapping series3Mapping = set.mapAs("{ x: 'x', value: 'value3' }");
+        chart.line(series1Mapping);
+        chart.line(series2Mapping);
+        chart.line(series3Mapping);
+        chartView.setChart(chart);
+    }
+
+    private void addDataEntries(List<DataEntry> seriesData) {
         addDataEntry(seriesData, "1986", 3.6, 2.3, 2.8);
         addDataEntry(seriesData, "1987", 7.1, 4.0, 4.1);
         addDataEntry(seriesData, "1988", 8.5, 6.2, 5.1);
@@ -92,15 +105,6 @@ public class MainActivity extends AppCompatActivity {
         addDataEntry(seriesData, "2007", 14.1, 20.7, 12.2);
         addDataEntry(seriesData, "2008", 15.7, 21.6, 10);
         addDataEntry(seriesData, "2009", 12.0, 22.5, 8.9);
-        Set set = Set.instantiate();
-        set.data(seriesData);
-        Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
-        Mapping series2Mapping = set.mapAs("{ x: 'x', value: 'value2' }");
-        Mapping series3Mapping = set.mapAs("{ x: 'x', value: 'value3' }");
-        chart.line(series1Mapping);
-        chart.line(series2Mapping);
-        chart.line(series3Mapping);
-        chartView.setChart(chart);
     }
 
     private void addDataEntry(List<DataEntry> seriesData, String label, double value1, double value2, double value3) {
