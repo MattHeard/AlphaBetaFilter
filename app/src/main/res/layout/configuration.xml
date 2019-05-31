@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/sensorsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -13,6 +14,7 @@
             android:id="@+id/sensorsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:labelFor="@id/sensorsSpinner"
             android:text="@string/sensor_label" />
 
         <Spinner
@@ -24,6 +26,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/initialModelLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -33,6 +36,81 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/initial_model_label" />
+
+        <TextView
+            android:id="@+id/initialValueEstimateLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/initialValueEstimateField"
+            android:text="@string/initial_value_label" />
+
+        <EditText
+            android:id="@+id/initialValueEstimateField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="numberSigned|numberDecimal" />
+
+        <TextView
+            android:id="@+id/initialChangeEstimateLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/initialChangeEstimateField"
+            android:text="@string/initial_change_label" />
+
+        <EditText
+            android:id="@+id/initialChangeEstimateField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="numberSigned|numberDecimal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/gainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/gainLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/initial_model_label" />
+
+        <TextView
+            android:id="@+id/alphaLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/alphaField"
+            android:text="@string/initial_value_label" />
+
+        <EditText
+            android:id="@+id/alphaField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="numberSigned|numberDecimal" />
+
+        <TextView
+            android:id="@+id/betaLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/betaField"
+            android:text="@string/initial_change_label" />
+
+        <EditText
+            android:id="@+id/betaField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:ems="10"
+            android:inputType="numberSigned|numberDecimal" />
+
     </LinearLayout>
 
 </LinearLayout>
