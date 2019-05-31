@@ -7,6 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Pie;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpSensorsSpinner();
+        AnyChartView chart = findViewById(R.id.chart);
+        Pie pie = AnyChart.pie();
+        List<DataEntry> pieChartData = new ArrayList<>();
+        pieChartData.add(new ValueDataEntry("Alice", 10000));
+        pieChartData.add(new ValueDataEntry("Betty", 12000));
+        pieChartData.add(new ValueDataEntry("Charlize", 20000));
+        pie.data(pieChartData);
+        chart.setChart(pie);
     }
 
     private void setUpSensorsSpinner() {

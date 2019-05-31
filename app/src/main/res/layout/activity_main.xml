@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include layout="@layout/configuration" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/configuration" />
+
+        <com.anychart.AnyChartView
+            android:id="@+id/chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
