@@ -79,14 +79,14 @@
             android:id="@+id/gainLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/initial_model_label" />
+            android:text="@string/gain_label" />
 
         <TextView
             android:id="@+id/alphaLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:labelFor="@id/alphaField"
-            android:text="@string/initial_value_label" />
+            android:text="@string/alpha_label" />
 
         <EditText
             android:id="@+id/alphaField"
@@ -101,7 +101,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:labelFor="@id/betaField"
-            android:text="@string/initial_change_label" />
+            android:text="@string/beta_label" />
 
         <EditText
             android:id="@+id/betaField"

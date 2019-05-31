@@ -4,4 +4,7 @@
     <string name="initial_model_label">Initial model</string>
     <string name="initial_value_label">Initial value</string>
     <string name="initial_change_label">Initial rate of change</string>
+    <string name="gain_label">Gain</string>
+    <string name="alpha_label">Alpha</string>
+    <string name="beta_label">Beta</string>
 </resources>
