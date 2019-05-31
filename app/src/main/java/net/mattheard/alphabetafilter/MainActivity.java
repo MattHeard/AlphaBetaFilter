@@ -25,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpSensorsSpinner();
+        setUpChart();
+    }
+
+    private void setUpChart() {
         AnyChartView chartView = findViewById(R.id.chart);
         Cartesian chart = AnyChart.line();
         List<DataEntry> seriesData = new ArrayList<>();
