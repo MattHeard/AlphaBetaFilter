@@ -69,14 +69,22 @@ public class MainActivity extends AppCompatActivity {
         Cartesian chart = AnyChart.line();
         List<DataEntry> seriesData = new ArrayList<>();
         addDataEntries(seriesData);
+
+        // Q: What is a Set?
         Set set = Set.instantiate();
         set.data(seriesData);
+
+        // Q: What is a Mapping?
         Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
         Mapping series2Mapping = set.mapAs("{ x: 'x', value: 'value2' }");
         Mapping series3Mapping = set.mapAs("{ x: 'x', value: 'value3' }");
+
+        // Q: What does line() do here?
         chart.line(series1Mapping);
         chart.line(series2Mapping);
         chart.line(series3Mapping);
+
+        // Q: What does setChart() do here?
         chartView.setChart(chart);
     }
 
