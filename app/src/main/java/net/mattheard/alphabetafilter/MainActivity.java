@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,45 +73,26 @@ public class MainActivity extends AppCompatActivity {
         List<DataEntry> seriesData = new ArrayList<>();
         Set set = Set.instantiate();
         Map<String, Mapping> mappingsByName = new HashMap<>();
-        mappingsByName.put("model", set.mapAs("{ x: 'x', value: 'model' }"));
-        chart.line(mappingsByName.get("model"));
-        mappingsByName.put("measurement", set.mapAs("{ x: 'x', value: 'measurement' }"));
-        chart.line(mappingsByName.get("measurement"));
-        mappingsByName.put("estimate", set.mapAs("{ x: 'x', value: 'estimate' }"));
-        chart.line(mappingsByName.get("estimate"));
+        String[] names = {"model", "measurement", "estimate"};
+        for (String name : names) {
+            mappingsByName.put(name, set.mapAs(String.format("{ x: 'x', value: '%s' }", name)));
+            chart.line(mappingsByName.get(name));
+        }
         chartView.setChart(chart);
+        for (int i = 1986; i < 2010; i++) {
+            addDataEntry(seriesData, set, Integer.toString(i));
+        }
+    }
 
-        addDataEntry(seriesData, "1986", 3.6, 2.3, 2.8);
-        addDataEntry(seriesData, "1987", 7.1, 4.0, 4.1);
-        addDataEntry(seriesData, "1988", 8.5, 6.2, 5.1);
-        addDataEntry(seriesData, "1989", 9.2, 11.8, 6.5);
-        addDataEntry(seriesData, "1990", 10.1, 13.0, 12.5);
-        addDataEntry(seriesData, "1991", 11.6, 13.9, 18.0);
-        addDataEntry(seriesData, "1992", 16.4, 18.0, 21.0);
-        addDataEntry(seriesData, "1993", 18.0, 23.3, 20.3);
-        addDataEntry(seriesData, "1994", 13.2, 24.7, 19.2);
-        addDataEntry(seriesData, "1995", 12.0, 18.0, 14.4);
-        addDataEntry(seriesData, "1996", 3.2, 15.1, 9.2);
-        addDataEntry(seriesData, "1997", 4.1, 11.3, 5.9);
-        addDataEntry(seriesData, "1998", 6.3, 14.2, 5.2);
-        addDataEntry(seriesData, "1999", 9.4, 13.7, 4.7);
-        addDataEntry(seriesData, "2000", 11.5, 9.9, 4.2);
-        addDataEntry(seriesData, "2001", 13.5, 12.1, 1.2);
-        addDataEntry(seriesData, "2002", 14.8, 13.5, 5.4);
-        addDataEntry(seriesData, "2003", 16.6, 15.1, 6.3);
-        addDataEntry(seriesData, "2004", 18.1, 17.9, 8.9);
-        addDataEntry(seriesData, "2005", 17.0, 18.9, 10.1);
-        addDataEntry(seriesData, "2006", 16.6, 20.3, 11.5);
-        addDataEntry(seriesData, "2007", 14.1, 20.7, 12.2);
-        addDataEntry(seriesData, "2008", 15.7, 21.6, 10);
-        addDataEntry(seriesData, "2009", 12.0, 22.5, 8.9);
+    private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
+        ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
+        entry.setValue("measurement", getRandomValue());
+        entry.setValue("estimate", getRandomValue());
+        seriesData.add(entry);
         set.data(seriesData);
     }
 
-    private void addDataEntry(List<DataEntry> seriesData, String label, double model, double measurement, double estimate) {
-        ValueDataEntry entry = new ValueDataEntry(label, model);
-        entry.setValue("measurement", measurement);
-        entry.setValue("estimate", estimate);
-        seriesData.add(entry);
+    private double getRandomValue() {
+        return ThreadLocalRandom.current().nextDouble(3, 20);
     }
 }
