@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity {
         List<DataEntry> seriesData = new ArrayList<>();
         Set set = Set.instantiate();
         Mapping modelDataMapping = set.mapAs("{ x: 'x', value: 'model' }");
-        Mapping measurementDataMapping = set.mapAs("{ x: 'x', value: 'measurement' }");
-        Mapping estimateDataMapping = set.mapAs("{ x: 'x', value: 'estimate' }");
         chart.line(modelDataMapping);
+        Mapping measurementDataMapping = set.mapAs("{ x: 'x', value: 'measurement' }");
         chart.line(measurementDataMapping);
+        Mapping estimateDataMapping = set.mapAs("{ x: 'x', value: 'estimate' }");
         chart.line(estimateDataMapping);
         chartView.setChart(chart);
 
