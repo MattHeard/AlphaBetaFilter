@@ -16,7 +16,9 @@ import com.anychart.data.Mapping;
 import com.anychart.data.Set;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,12 +71,13 @@ public class MainActivity extends AppCompatActivity {
         Cartesian chart = AnyChart.line();
         List<DataEntry> seriesData = new ArrayList<>();
         Set set = Set.instantiate();
-        Mapping modelDataMapping = set.mapAs("{ x: 'x', value: 'model' }");
-        chart.line(modelDataMapping);
-        Mapping measurementDataMapping = set.mapAs("{ x: 'x', value: 'measurement' }");
-        chart.line(measurementDataMapping);
-        Mapping estimateDataMapping = set.mapAs("{ x: 'x', value: 'estimate' }");
-        chart.line(estimateDataMapping);
+        Map<String, Mapping> mappingsByName = new HashMap<>();
+        mappingsByName.put("model", set.mapAs("{ x: 'x', value: 'model' }"));
+        chart.line(mappingsByName.get("model"));
+        mappingsByName.put("measurement", set.mapAs("{ x: 'x', value: 'measurement' }"));
+        chart.line(mappingsByName.get("measurement"));
+        mappingsByName.put("estimate", set.mapAs("{ x: 'x', value: 'estimate' }"));
+        chart.line(mappingsByName.get("estimate"));
         chartView.setChart(chart);
 
         addDataEntry(seriesData, "1986", 3.6, 2.3, 2.8);
