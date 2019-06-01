@@ -68,11 +68,9 @@ public class MainActivity extends AppCompatActivity {
         AnyChartView chartView = findViewById(R.id.chart);
         Cartesian chart = AnyChart.line();
         List<DataEntry> seriesData = new ArrayList<>();
-        addDataEntries(seriesData);
 
         // Q: What is a Set?
         Set set = Set.instantiate();
-        set.data(seriesData);
 
         // Q: What is a Mapping?
         Mapping modelDataMapping = set.mapAs("{ x: 'x', value: 'model' }");
@@ -86,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Q: What does setChart() do here?
         chartView.setChart(chart);
-    }
 
-    private void addDataEntries(List<DataEntry> seriesData) {
         addDataEntry(seriesData, "1986", 3.6, 2.3, 2.8);
         addDataEntry(seriesData, "1987", 7.1, 4.0, 4.1);
         addDataEntry(seriesData, "1988", 8.5, 6.2, 5.1);
@@ -113,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         addDataEntry(seriesData, "2007", 14.1, 20.7, 12.2);
         addDataEntry(seriesData, "2008", 15.7, 21.6, 10);
         addDataEntry(seriesData, "2009", 12.0, 22.5, 8.9);
+        set.data(seriesData);
     }
 
     private void addDataEntry(List<DataEntry> seriesData, String label, double model, double measurement, double estimate) {
