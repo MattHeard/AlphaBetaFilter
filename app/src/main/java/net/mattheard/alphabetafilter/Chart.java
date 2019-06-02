@@ -37,9 +37,9 @@ class Chart {
     }
 
     void addChartData() {
-        int i = 1986;
-        for (; i < 2010; i++) {
-            addDataEntry(Integer.toString(i));
+        int iteration = 1986;
+        for (; iteration < 2010; iteration++) {
+            addDataEntry(Integer.toString(iteration));
         }
     }
 
