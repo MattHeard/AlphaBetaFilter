@@ -68,7 +68,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class Chart {
+        public void setUp() {
 
+        }
     }
 
     private void setUpChart() {
