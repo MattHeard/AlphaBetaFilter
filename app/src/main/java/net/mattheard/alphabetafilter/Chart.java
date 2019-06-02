@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 class Chart {
     private final Set set;
@@ -39,13 +42,21 @@ class Chart {
     }
 
     void addChartData() {
+        addDataEntry("1985");
         for (; iteration < 2010; iteration++) {
             addDataEntry(Integer.toString(iteration));
         }
     }
 
     void subscribeToNewData() {
-        set.data(seriesData);
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                set.data(seriesData);
+            }
+        };
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);
     }
 
     private void addDataEntry(String label) {
