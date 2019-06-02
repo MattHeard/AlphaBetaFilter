@@ -17,9 +17,11 @@ import java.util.concurrent.ThreadLocalRandom;
 class Chart {
     private final Set set;
     private final AnyChartView renderer;
+    private final List<DataEntry> seriesData;
 
     Chart(final AnyChartView renderer) {
         set = Set.instantiate();
+        seriesData = new ArrayList<>();
         this.renderer = renderer;
     }
 
@@ -35,7 +37,6 @@ class Chart {
     }
 
     void addChartData() {
-        List<DataEntry> seriesData = new ArrayList<>();
         for (int i = 1986; i < 2010; i++) {
             addDataEntry(seriesData, set, Integer.toString(i));
         }
