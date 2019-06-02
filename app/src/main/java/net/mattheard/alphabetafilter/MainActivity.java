@@ -69,9 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpChart() {
         AnyChartView chartView = findViewById(R.id.chart);
-        Cartesian chart = AnyChart.line();
-        List<DataEntry> seriesData = new ArrayList<>();
         Set set = Set.instantiate();
+        setUpChart(chartView, set);
+        addChartData(set);
+    }
+
+    private void addChartData(Set set) {
+        List<DataEntry> seriesData = new ArrayList<>();
+        for (int i = 1986; i < 2010; i++) {
+            addDataEntry(seriesData, set, Integer.toString(i));
+        }
+    }
+
+    private void setUpChart(AnyChartView chartView, Set set) {
+        Cartesian chart = AnyChart.line();
         Map<String, Mapping> mappingsByName = new HashMap<>();
         String[] names = {"model", "measurement", "estimate"};
         for (String name : names) {
@@ -79,9 +90,6 @@ public class MainActivity extends AppCompatActivity {
             chart.line(mappingsByName.get(name));
         }
         chartView.setChart(chart);
-        for (int i = 1986; i < 2010; i++) {
-            addDataEntry(seriesData, set, Integer.toString(i));
-        }
     }
 
     private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
