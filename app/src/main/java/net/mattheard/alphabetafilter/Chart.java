@@ -18,10 +18,12 @@ class Chart {
     private final Set set;
     private final AnyChartView renderer;
     private final List<DataEntry> seriesData;
+    private int iteration;
 
     Chart(final AnyChartView renderer) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
+        iteration = 1986;
         this.renderer = renderer;
     }
 
@@ -37,7 +39,6 @@ class Chart {
     }
 
     void addChartData() {
-        int iteration = 1986;
         for (; iteration < 2010; iteration++) {
             addDataEntry(Integer.toString(iteration));
         }
