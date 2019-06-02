@@ -7,19 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
-import com.anychart.charts.Cartesian;
-import com.anychart.data.Mapping;
-import com.anychart.data.Set;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,41 +60,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpChart() {
         AnyChartView chartView = findViewById(R.id.chart);
-        Chart chart = new Chart();
-        Set set = Set.instantiate();
-        chart.setUp(chartView, set);
-        chart.addChartData(set);
+        Chart chart = new Chart(chartView);
+        chart.setUp();
+        chart.addChartData();
     }
 
-    private class Chart {
-        public void setUp(final AnyChartView chartView, final Set set) {
-            Cartesian chart = AnyChart.line();
-            Map<String, Mapping> mappingsByName = new HashMap<>();
-            String[] names = {"model", "measurement", "estimate"};
-            for (String name : names) {
-                mappingsByName.put(name, set.mapAs(String.format("{ x: 'x', value: '%s' }", name)));
-                chart.line(mappingsByName.get(name));
-            }
-            chartView.setChart(chart);
-        }
-
-        void addChartData(final Set set) {
-            List<DataEntry> seriesData = new ArrayList<>();
-            for (int i = 1986; i < 2010; i++) {
-                addDataEntry(seriesData, set, Integer.toString(i));
-            }
-        }
-
-        private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
-            ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
-            entry.setValue("measurement", getRandomValue());
-            entry.setValue("estimate", getRandomValue());
-            seriesData.add(entry);
-            set.data(seriesData);
-        }
-
-        private double getRandomValue() {
-            return ThreadLocalRandom.current().nextDouble(3, 20);
-        }
-    }
 }
