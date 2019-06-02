@@ -22,12 +22,13 @@ public class MainActivity extends AppCompatActivity {
         setUpSensorsSpinner();
         setUpChart();
         Log.i("threading", "onCreate: hello, main thread");
-        new Runnable() {
+        final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                Log.i("threading", "hello from runnable");
+                Log.i("threading", "hello from non-main thread");
             }
-        }.run();
+        };
+        new Thread(runnable).start();
     }
 
     private void setUpSensorsSpinner() {
