@@ -21,12 +21,14 @@ class Chart {
     private final Set set;
     private final AnyChartView renderer;
     private final List<DataEntry> seriesData;
+    private final ScheduledExecutorService executor;
     private int iteration;
 
     Chart(final AnyChartView renderer) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 1986;
+        executor = Executors.newScheduledThreadPool(1);
         this.renderer = renderer;
     }
 
@@ -55,7 +57,6 @@ class Chart {
                 set.data(seriesData);
             }
         };
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);
     }
 
