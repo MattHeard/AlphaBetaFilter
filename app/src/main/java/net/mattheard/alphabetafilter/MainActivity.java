@@ -67,6 +67,10 @@ public class MainActivity extends AppCompatActivity {
         return adapter;
     }
 
+    private class Chart {
+
+    }
+
     private void setUpChart() {
         AnyChartView chartView = findViewById(R.id.chart);
         Set set = Set.instantiate();
