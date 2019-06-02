@@ -39,8 +39,8 @@ class Chart {
     void addChartData() {
         for (int i = 1986; i < 2010; i++) {
             addDataEntry(set, Integer.toString(i));
-            set.data(seriesData);
         }
+        set.data(seriesData);
     }
 
     private void addDataEntry(Set set, String label) {
