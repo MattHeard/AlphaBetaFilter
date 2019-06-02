@@ -47,7 +47,7 @@ class Chart {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                addDataEntry(Integer.toString(iteration++));
+                addDataEntry();
             }
         };
         executor.scheduleAtFixedRate(runnable, 0, 500, TimeUnit.MILLISECONDS);
@@ -63,7 +63,8 @@ class Chart {
         executor.scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);
     }
 
-    private void addDataEntry(String label) {
+    private void addDataEntry() {
+        String label = Integer.toString(iteration++);
         ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
         entry.setValue("measurement", getRandomValue());
         entry.setValue("estimate", getRandomValue());
