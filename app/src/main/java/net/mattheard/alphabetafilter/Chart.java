@@ -38,11 +38,11 @@ class Chart {
 
     void addChartData() {
         for (int i = 1986; i < 2010; i++) {
-            addDataEntry(seriesData, set, Integer.toString(i));
+            addDataEntry(set, Integer.toString(i));
         }
     }
 
-    private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
+    private void addDataEntry(Set set, String label) {
         ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
         entry.setValue("measurement", getRandomValue());
         entry.setValue("estimate", getRandomValue());
