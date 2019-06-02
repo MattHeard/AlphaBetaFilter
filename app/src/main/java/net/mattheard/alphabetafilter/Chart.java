@@ -39,6 +39,7 @@ class Chart {
     void addChartData() {
         for (int i = 1986; i < 2010; i++) {
             addDataEntry(set, Integer.toString(i));
+            set.data(seriesData);
         }
     }
 
@@ -47,7 +48,6 @@ class Chart {
         entry.setValue("measurement", getRandomValue());
         entry.setValue("estimate", getRandomValue());
         seriesData.add(entry);
-        set.data(seriesData);
     }
 
     private double getRandomValue() {
