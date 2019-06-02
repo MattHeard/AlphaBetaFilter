@@ -93,17 +93,17 @@ public class MainActivity extends AppCompatActivity {
                 addDataEntry(seriesData, set, Integer.toString(i));
             }
         }
-    }
 
-    private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
-        ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
-        entry.setValue("measurement", getRandomValue());
-        entry.setValue("estimate", getRandomValue());
-        seriesData.add(entry);
-        set.data(seriesData);
-    }
+        private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
+            ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
+            entry.setValue("measurement", getRandomValue());
+            entry.setValue("estimate", getRandomValue());
+            seriesData.add(entry);
+            set.data(seriesData);
+        }
 
-    private double getRandomValue() {
-        return ThreadLocalRandom.current().nextDouble(3, 20);
+        private double getRandomValue() {
+            return ThreadLocalRandom.current().nextDouble(3, 20);
+        }
     }
 }
