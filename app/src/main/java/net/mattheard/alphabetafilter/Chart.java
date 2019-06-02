@@ -40,6 +40,9 @@ class Chart {
         for (int i = 1986; i < 2010; i++) {
             addDataEntry(set, Integer.toString(i));
         }
+    }
+
+    void subscribeToNewData() {
         set.data(seriesData);
     }
 

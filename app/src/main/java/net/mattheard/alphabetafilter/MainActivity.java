@@ -107,6 +107,6 @@ public class MainActivity extends AppCompatActivity {
         Chart chart = new Chart(chartView);
         chart.setUp();
         chart.addChartData();
+        chart.subscribeToNewData();
     }
-
 }
