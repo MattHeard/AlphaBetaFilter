@@ -44,10 +44,13 @@ class Chart {
     }
 
     void addChartData() {
-        addDataEntry("1985");
-        for (; iteration < 2010; iteration++) {
-            addDataEntry(Integer.toString(iteration));
-        }
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                addDataEntry(Integer.toString(iteration++));
+            }
+        };
+        executor.scheduleAtFixedRate(runnable, 0, 500, TimeUnit.MILLISECONDS);
     }
 
     void subscribeToNewData() {
