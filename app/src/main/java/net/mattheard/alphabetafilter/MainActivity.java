@@ -56,7 +56,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void run() {
-            Log.i("threading", String.format("run: hello, %s", numbers));
+            final Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    Log.i("threading", String.format("run: hello, %s", numbers));
+                }
+            };
+            runOnUiThread(runnable);
         }
     }
 
