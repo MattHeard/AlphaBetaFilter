@@ -67,17 +67,25 @@ public class MainActivity extends AppCompatActivity {
         return adapter;
     }
 
-    private class Chart {
-        public void setUp() {
-
-        }
-    }
-
     private void setUpChart() {
         AnyChartView chartView = findViewById(R.id.chart);
+        Chart chart = new Chart();
         Set set = Set.instantiate();
-        setUpChart(chartView, set);
+        chart.setUp(chartView, set);
         addChartData(set);
+    }
+
+    private class Chart {
+        public void setUp(final AnyChartView chartView, final Set set) {
+            Cartesian chart = AnyChart.line();
+            Map<String, Mapping> mappingsByName = new HashMap<>();
+            String[] names = {"model", "measurement", "estimate"};
+            for (String name : names) {
+                mappingsByName.put(name, set.mapAs(String.format("{ x: 'x', value: '%s' }", name)));
+                chart.line(mappingsByName.get(name));
+            }
+            chartView.setChart(chart);
+        }
     }
 
     private void addChartData(Set set) {
@@ -85,17 +93,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 1986; i < 2010; i++) {
             addDataEntry(seriesData, set, Integer.toString(i));
         }
-    }
-
-    private void setUpChart(AnyChartView chartView, Set set) {
-        Cartesian chart = AnyChart.line();
-        Map<String, Mapping> mappingsByName = new HashMap<>();
-        String[] names = {"model", "measurement", "estimate"};
-        for (String name : names) {
-            mappingsByName.put(name, set.mapAs(String.format("{ x: 'x', value: '%s' }", name)));
-            chart.line(mappingsByName.get(name));
-        }
-        chartView.setChart(chart);
     }
 
     private void addDataEntry(List<DataEntry> seriesData, Set set, String label) {
