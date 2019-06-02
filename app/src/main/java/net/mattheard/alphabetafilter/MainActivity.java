@@ -26,33 +26,37 @@ public class MainActivity extends AppCompatActivity {
         setUpChart();
         List<Integer> numbers = new ArrayList<>();
         Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        final Runnable runnable = new ListAppender(numbers);
+        final Runnable appender = new ListAppender(numbers);
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        executor.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
-        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        executor.scheduleAtFixedRate(appender, 0, 100, TimeUnit.MILLISECONDS);
+        final Runnable reader = new ListReader(numbers);
+        executor.scheduleAtFixedRate(reader, 0, 1, TimeUnit.SECONDS);
     }
 
     private class ListAppender implements Runnable {
         private final List<Integer> numbers;
+        private int number;
 
         ListAppender(List<Integer> numbers) {
+            this.numbers = numbers;
+            number = 0;
+        }
+
+        public void run() {
+            Log.i("threading", "run: add " + number);
+            numbers.add(number++);
+        }
+    }
+
+    private class ListReader implements Runnable {
+        private final List<Integer> numbers;
+
+        ListReader(List<Integer> numbers) {
             this.numbers = numbers;
         }
 
         public void run() {
-            Log.i("threading", "run: add 1");
-            numbers.add(1);
+            Log.i("threading", String.format("run: hello, %s", numbers));
         }
     }
 
