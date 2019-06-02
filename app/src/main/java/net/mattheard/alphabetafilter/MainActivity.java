@@ -12,6 +12,9 @@ import com.anychart.AnyChartView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         List<Integer> numbers = new ArrayList<>();
         Log.i("threading", String.format("onCreate: hello, %s", numbers));
         final Runnable runnable = new ListAppender(numbers);
-        new Thread(runnable).start();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(runnable, 0, 1, TimeUnit.SECONDS);
         Log.i("threading", String.format("onCreate: hello, %s", numbers));
         Log.i("threading", String.format("onCreate: hello, %s", numbers));
         Log.i("threading", String.format("onCreate: hello, %s", numbers));
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void run() {
+            Log.i("threading", "run: add 1");
             numbers.add(1);
         }
     }
