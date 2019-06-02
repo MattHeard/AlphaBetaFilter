@@ -21,14 +21,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setUpSensorsSpinner();
         setUpChart();
-        Log.i("threading", "onCreate: hello, main thread");
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                Log.i("threading", "hello from non-main thread");
-            }
-        };
+        List<Integer> numbers = new ArrayList<>();
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        final Runnable runnable = new ListAppender(numbers);
         new Thread(runnable).start();
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+        Log.i("threading", String.format("onCreate: hello, %s", numbers));
+    }
+
+    private class ListAppender implements Runnable {
+        private final List<Integer> numbers;
+
+        ListAppender(List<Integer> numbers) {
+            this.numbers = numbers;
+        }
+
+        public void run() {
+            numbers.add(1);
+        }
     }
 
     private void setUpSensorsSpinner() {
