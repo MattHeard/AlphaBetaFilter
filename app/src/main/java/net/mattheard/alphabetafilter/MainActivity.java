@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Chart chart = new Chart();
         Set set = Set.instantiate();
         chart.setUp(chartView, set);
-        addChartData(set);
+        chart.addChartData(set);
     }
 
     private class Chart {
@@ -86,12 +86,12 @@ public class MainActivity extends AppCompatActivity {
             }
             chartView.setChart(chart);
         }
-    }
 
-    private void addChartData(Set set) {
-        List<DataEntry> seriesData = new ArrayList<>();
-        for (int i = 1986; i < 2010; i++) {
-            addDataEntry(seriesData, set, Integer.toString(i));
+        void addChartData(final Set set) {
+            List<DataEntry> seriesData = new ArrayList<>();
+            for (int i = 1986; i < 2010; i++) {
+                addDataEntry(seriesData, set, Integer.toString(i));
+            }
         }
     }
 
