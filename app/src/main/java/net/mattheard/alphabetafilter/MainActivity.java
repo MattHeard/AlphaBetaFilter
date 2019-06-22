@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpSensorsSpinner() {
-        getSensorsSpinner().setAdapter(getSensorsAdapter());
+        Spinner spinner = getSensorsSpinner();
+        spinner.setAdapter(getSensorsAdapter());
     }
 
     private Spinner getSensorsSpinner() {
