@@ -8,7 +8,7 @@ import android.hardware.SensorManager;
 class SensorListener implements SensorEventListener {
 
     private final Sensor sensor;
-    private MainActivity mainActivity;
+    private final MainActivity mainActivity;
     private float measurement;
 
     SensorListener(MainActivity mainActivity) {
