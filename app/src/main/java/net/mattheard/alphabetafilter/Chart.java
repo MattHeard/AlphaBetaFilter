@@ -1,5 +1,7 @@
 package net.mattheard.alphabetafilter;
 
+import android.util.Log;
+
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -14,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 class Chart {
@@ -22,14 +23,17 @@ class Chart {
     private final AnyChartView renderer;
     private final List<DataEntry> seriesData;
     private final ScheduledExecutorService executor;
+    private final MainActivity.SensorListener sensorListener;
     private int iteration;
 
-    Chart(final AnyChartView renderer) {
+    Chart(final AnyChartView renderer, MainActivity.SensorListener sensorListener) {
+        Log.i("sensor", "Chart: hello");
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 1986;
         executor = Executors.newScheduledThreadPool(1);
         this.renderer = renderer;
+        this.sensorListener = sensorListener;
     }
 
     void setUp() {
@@ -65,13 +69,11 @@ class Chart {
 
     private void addDataEntry() {
         String label = Integer.toString(iteration++);
-        ValueDataEntry entry = new ValueDataEntry(label, getRandomValue());
-        entry.setValue("measurement", getRandomValue());
-        entry.setValue("estimate", getRandomValue());
+        float measurement = sensorListener.getMeasurement();
+        ValueDataEntry entry = new ValueDataEntry(label, measurement);
+        entry.setValue("measurement", measurement);
+        entry.setValue("estimate", measurement);
         seriesData.add(entry);
     }
 
-    private double getRandomValue() {
-        return ThreadLocalRandom.current().nextDouble(3, 20);
-    }
 }

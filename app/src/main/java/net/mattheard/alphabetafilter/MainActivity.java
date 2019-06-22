@@ -1,6 +1,8 @@
 package net.mattheard.alphabetafilter;
 
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,12 +16,30 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SensorListener sensorListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpSensorsSpinner();
+        sensorListener = new SensorListener();
+        sensorListener.register();
         setUpChart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sensorListener.unregister();
+    }
+
+    private void setUpChart() {
+        AnyChartView chartView = findViewById(R.id.chart);
+        Chart chart = new Chart(chartView, sensorListener);
+        chart.setUp();
+        chart.addChartData();
+        chart.subscribeToNewData();
     }
 
     private void setUpSensorsSpinner() {
@@ -58,11 +78,35 @@ public class MainActivity extends AppCompatActivity {
         return adapter;
     }
 
-    private void setUpChart() {
-        AnyChartView chartView = findViewById(R.id.chart);
-        Chart chart = new Chart(chartView);
-        chart.setUp();
-        chart.addChartData();
-        chart.subscribeToNewData();
+    class SensorListener implements SensorEventListener {
+
+        private final Sensor sensor;
+        private float measurement;
+
+        SensorListener() {
+            sensor = getSensors().get(0);
+        }
+
+        void register() {
+            getSensorManager().registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        void unregister() {
+            getSensorManager().unregisterListener(this);
+        }
+
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            measurement = event.values[0];
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+
+        float getMeasurement() {
+            return measurement;
+        }
     }
 }
