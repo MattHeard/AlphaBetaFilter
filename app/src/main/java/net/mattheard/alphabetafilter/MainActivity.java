@@ -21,9 +21,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpSensorsSpinner();
+        setUpSensorListener();
+        setUpChart();
+    }
+
+    private void setUpSensorListener() {
         sensorListener = new SensorListener(this);
         sensorListener.register();
-        setUpChart();
     }
 
     @Override
