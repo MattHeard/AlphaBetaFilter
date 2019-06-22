@@ -1,8 +1,6 @@
 package net.mattheard.alphabetafilter;
 
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setUpSensorsSpinner();
-        sensorListener = new SensorListener();
+        sensorListener = new SensorListener(this);
         sensorListener.register();
         setUpChart();
     }
@@ -62,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
         return names;
     }
 
-    private List<Sensor> getSensors() {
+    public List<Sensor> getSensors() {
         return getSensorManager().getSensorList(Sensor.TYPE_ALL);
     }
 
-    private SensorManager getSensorManager() {
+    public SensorManager getSensorManager() {
         return (SensorManager) getSystemService(SENSOR_SERVICE);
     }
 
@@ -78,35 +76,4 @@ public class MainActivity extends AppCompatActivity {
         return adapter;
     }
 
-    class SensorListener implements SensorEventListener {
-
-        private final Sensor sensor;
-        private float measurement;
-
-        SensorListener() {
-            sensor = getSensors().get(0);
-        }
-
-        void register() {
-            getSensorManager().registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-
-        void unregister() {
-            getSensorManager().unregisterListener(this);
-        }
-
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            measurement = event.values[0];
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-        }
-
-        float getMeasurement() {
-            return measurement;
-        }
-    }
 }

@@ -21,10 +21,10 @@ class Chart {
     private final AnyChartView renderer;
     private final List<DataEntry> seriesData;
     private final ScheduledExecutorService executor;
-    private final MainActivity.SensorListener sensorListener;
+    private final SensorListener sensorListener;
     private int iteration;
 
-    Chart(final AnyChartView renderer, MainActivity.SensorListener sensorListener) {
+    Chart(final AnyChartView renderer, SensorListener sensorListener) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 1986;
