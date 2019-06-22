@@ -97,9 +97,13 @@ class Chart {
     }
 
     private void removeOldData() {
-        while (seriesData.size() > 50) {
+        while (seriesData.size() > getMaxSeriesLength()) {
             seriesData.remove(0);
         }
+    }
+
+    private int getMaxSeriesLength() {
+        return 50;
     }
 
 }
