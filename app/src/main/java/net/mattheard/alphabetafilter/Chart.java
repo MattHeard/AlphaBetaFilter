@@ -93,6 +93,13 @@ class Chart {
         entry.setValue("measurement", measurement);
         entry.setValue("estimate", measurement);
         seriesData.add(entry);
+        removeOldData();
+    }
+
+    private void removeOldData() {
+        while (seriesData.size() > 50) {
+            seriesData.remove(0);
+        }
     }
 
 }
