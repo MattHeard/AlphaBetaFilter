@@ -27,7 +27,7 @@ class Chart {
     Chart(final AnyChartView renderer, SensorListener sensorListener) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
-        iteration = 1986;
+        iteration = 0;
         executor = getNewExecutor();
         this.renderer = renderer;
         this.sensorListener = sensorListener;
