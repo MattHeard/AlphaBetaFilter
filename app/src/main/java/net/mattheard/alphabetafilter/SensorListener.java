@@ -7,7 +7,7 @@ import android.hardware.SensorManager;
 
 class SensorListener implements SensorEventListener {
 
-    private final Sensor sensor;
+    private Sensor sensor;
     private final SensorManager sensorManager;
     private float measurement;
 
@@ -36,5 +36,11 @@ class SensorListener implements SensorEventListener {
 
     float getMeasurement() {
         return measurement;
+    }
+
+    void changeSensor(Sensor sensor) {
+        this.sensor = sensor;
+        unregister();
+        register();
     }
 }
