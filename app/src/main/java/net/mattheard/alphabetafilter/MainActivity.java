@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpChart() {
-        AnyChartView chartView = findViewById(R.id.chart);
-        Chart chart = new Chart(chartView, sensorListener);
-        chart.setUp();
-        chart.addChartData();
-        chart.subscribeToNewData();
+        new Chart(getChartView(), sensorListener).setUp();
+    }
+
+    private AnyChartView getChartView() {
+        return findViewById(R.id.chart);
     }
 
     private void setUpSensorsSpinner() {
@@ -77,10 +77,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayAdapter<String> getNewSpinnerAdapter(List<String> sensors) {
-        final int layout = android.R.layout.simple_spinner_item;
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, layout, sensors);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, getSpinnerItemLayout(), sensors);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    private int getSpinnerItemLayout() {
+        return android.R.layout.simple_spinner_item;
     }
 
 }

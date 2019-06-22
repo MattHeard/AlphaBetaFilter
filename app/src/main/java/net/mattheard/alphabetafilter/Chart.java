@@ -28,23 +28,45 @@ class Chart {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 1986;
-        executor = Executors.newScheduledThreadPool(1);
+        executor = getNewExecutor();
         this.renderer = renderer;
         this.sensorListener = sensorListener;
     }
 
-    void setUp() {
-        Cartesian chart = AnyChart.line();
-        Map<String, Mapping> mappingsByName = new HashMap<>();
-        String[] names = {"model", "measurement", "estimate"};
-        for (String name : names) {
-            mappingsByName.put(name, set.mapAs(String.format("{ x: 'x', value: '%s' }", name)));
-            chart.line(mappingsByName.get(name));
-        }
-        renderer.setChart(chart);
+    private ScheduledExecutorService getNewExecutor() {
+        return Executors.newScheduledThreadPool(1);
     }
 
-    void addChartData() {
+    void setUp() {
+        Cartesian chart = getNewChart();
+        addLines(chart);
+        renderer.setChart(chart);
+        addChartData();
+        subscribeToNewData();
+    }
+
+    private void addLines(Cartesian chart) {
+        String[] names = {"model", "measurement", "estimate"};
+        Map<String, Mapping> mappingsByName = getMappingsByName(names);
+        for (String name : names) {
+            Mapping mapping = mappingsByName.get(name);
+            chart.line(mapping);
+        }
+    }
+
+    private Map<String, Mapping> getMappingsByName(String[] names) {
+        Map<String, Mapping> mappingsByName = new HashMap<>();
+        for (String name : names) {
+            mappingsByName.put(name, set.mapAs(String.format("{ x: 'x', value: '%s' }", name)));
+        }
+        return mappingsByName;
+    }
+
+    private Cartesian getNewChart() {
+        return AnyChart.line();
+    }
+
+    private void addChartData() {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -54,7 +76,7 @@ class Chart {
         executor.scheduleAtFixedRate(runnable, 0, 500, TimeUnit.MILLISECONDS);
     }
 
-    void subscribeToNewData() {
+    private void subscribeToNewData() {
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
