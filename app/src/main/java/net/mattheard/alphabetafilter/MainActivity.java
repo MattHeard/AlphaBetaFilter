@@ -26,8 +26,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpSensorListener() {
-        sensorListener = new SensorListener(this);
+        sensorListener = new SensorListener(getSensorManager(), getFirstSensor());
         sensorListener.register();
+    }
+
+    private Sensor getFirstSensor() {
+        return getSensors().get(0);
     }
 
     @Override
