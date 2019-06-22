@@ -1,7 +1,5 @@
 package net.mattheard.alphabetafilter;
 
-import android.util.Log;
-
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -27,7 +25,6 @@ class Chart {
     private int iteration;
 
     Chart(final AnyChartView renderer, MainActivity.SensorListener sensorListener) {
-        Log.i("sensor", "Chart: hello");
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 1986;
