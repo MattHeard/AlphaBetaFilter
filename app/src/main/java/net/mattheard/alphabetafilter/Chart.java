@@ -72,8 +72,8 @@ class Chart {
         executor.scheduleAtFixedRate(adder, 0, 500, TimeUnit.MILLISECONDS);
     }
 
-    int incrementIteration() {
-        return iteration++;
+    void incrementIteration() {
+        iteration++;
     }
 
     int getIteration() {
