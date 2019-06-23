@@ -74,6 +74,27 @@ class Chart {
             public void run() {
                 addDataEntry();
             }
+
+            private void addDataEntry() {
+                String label = Integer.toString(iteration++);
+                float measurement = sensorListener.getMeasurement();
+                float modeledValue = model.value;
+                ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
+                entry.setValue("measurement", measurement);
+                entry.setValue("estimate", measurement);
+                seriesData.add(entry);
+                removeOldData();
+            }
+
+            private void removeOldData() {
+                while (seriesData.size() > getMaxSeriesLength()) {
+                    seriesData.remove(0);
+                }
+            }
+
+            private int getMaxSeriesLength() {
+                return 50;
+            }
         };
         executor.scheduleAtFixedRate(runnable, 0, 500, TimeUnit.MILLISECONDS);
     }
@@ -81,27 +102,6 @@ class Chart {
     private void subscribeToNewData() {
         final Runnable updater = new ChartDataSetUpdater(set, seriesData);
         executor.scheduleAtFixedRate(updater, 0, 100, TimeUnit.MILLISECONDS);
-    }
-
-    private void addDataEntry() {
-        String label = Integer.toString(iteration++);
-        float measurement = sensorListener.getMeasurement();
-        float modeledValue = model.value;
-        ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
-        entry.setValue("measurement", measurement);
-        entry.setValue("estimate", measurement);
-        seriesData.add(entry);
-        removeOldData();
-    }
-
-    private void removeOldData() {
-        while (seriesData.size() > getMaxSeriesLength()) {
-            seriesData.remove(0);
-        }
-    }
-
-    private int getMaxSeriesLength() {
-        return 50;
     }
 
 }
