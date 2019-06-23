@@ -89,7 +89,8 @@ class Chart {
     private void addDataEntry() {
         String label = Integer.toString(iteration++);
         float measurement = sensorListener.getMeasurement();
-        ValueDataEntry entry = new ValueDataEntry(label, measurement);
+        double modeledValue = 0.0;
+        ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
         entry.setValue("measurement", measurement);
         entry.setValue("estimate", measurement);
         seriesData.add(entry);
