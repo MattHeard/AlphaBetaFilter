@@ -79,8 +79,8 @@ class Chart {
     }
 
     private void subscribeToNewData() {
-        final Runnable runnable = new ChartDataSetUpdater(set, seriesData);
-        executor.scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);
+        final Runnable updater = new ChartDataSetUpdater(set, seriesData);
+        executor.scheduleAtFixedRate(updater, 0, 100, TimeUnit.MILLISECONDS);
     }
 
     private void addDataEntry() {
