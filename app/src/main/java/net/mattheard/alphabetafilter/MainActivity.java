@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpChart() {
-        new Chart(getChartView(), sensorListener).setUp();
+        Model model = new Model();
+        new Chart(getChartView(), sensorListener, model).setUp();
     }
 
     private AnyChartView getChartView() {

@@ -25,14 +25,14 @@ class Chart {
     private int iteration;
     private Model model;
 
-    Chart(final AnyChartView renderer, SensorListener sensorListener) {
+    Chart(final AnyChartView renderer, SensorListener sensorListener, Model model) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 0;
         executor = getNewExecutor();
         this.renderer = renderer;
         this.sensorListener = sensorListener;
-        model = new Model();
+        this.model = model;
     }
 
     private ScheduledExecutorService getNewExecutor() {
@@ -79,12 +79,7 @@ class Chart {
     }
 
     private void subscribeToNewData() {
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                set.data(seriesData);
-            }
-        };
+        final Runnable runnable = new ChartDataSetUpdater(set, seriesData);
         executor.scheduleAtFixedRate(runnable, 0, 100, TimeUnit.MILLISECONDS);
     }
 
