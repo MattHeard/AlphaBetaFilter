@@ -68,8 +68,8 @@ class Chart {
     }
 
     private void addChartData() {
-        final Runnable runnable = new DataEntryAdder(this, sensorListener, model, seriesData);
-        executor.scheduleAtFixedRate(runnable, 0, 500, TimeUnit.MILLISECONDS);
+        final Runnable adder = new DataEntryAdder(this, sensorListener, model, seriesData);
+        executor.scheduleAtFixedRate(adder, 0, 500, TimeUnit.MILLISECONDS);
     }
 
     int incrementIteration() {
