@@ -10,10 +10,10 @@ class DataEntryAdder implements Runnable {
     private final List<DataEntry> seriesData;
     private Filter filter;
 
-    DataEntryAdder(Chart chart, SensorListener sensorListener, Model model, List<DataEntry> seriesData) {
+    DataEntryAdder(Chart chart, List<DataEntry> seriesData, Filter filter) {
         this.chart = chart;
         this.seriesData = seriesData;
-        filter = new Filter(sensorListener, model);
+        this.filter = filter;
     }
 
     @Override
