@@ -3,7 +3,6 @@ package net.mattheard.alphabetafilter;
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Cartesian;
 import com.anychart.data.Mapping;
 import com.anychart.data.Set;
@@ -69,35 +68,16 @@ class Chart {
     }
 
     private void addChartData() {
-        final Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                addDataEntry();
-            }
-
-            private void addDataEntry() {
-                String label = Integer.toString(iteration);
-                iteration++;
-                float measurement = sensorListener.getMeasurement();
-                float modeledValue = model.value;
-                ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
-                entry.setValue("measurement", measurement);
-                entry.setValue("estimate", measurement);
-                seriesData.add(entry);
-                removeOldData();
-            }
-
-            private void removeOldData() {
-                while (seriesData.size() > getMaxSeriesLength()) {
-                    seriesData.remove(0);
-                }
-            }
-
-            private int getMaxSeriesLength() {
-                return 50;
-            }
-        };
+        final Runnable runnable = new DataEntryAdder(this, sensorListener, model, seriesData);
         executor.scheduleAtFixedRate(runnable, 0, 500, TimeUnit.MILLISECONDS);
+    }
+
+    int incrementIteration() {
+        return iteration++;
+    }
+
+    int getIteration() {
+        return iteration;
     }
 
     private void subscribeToNewData() {
