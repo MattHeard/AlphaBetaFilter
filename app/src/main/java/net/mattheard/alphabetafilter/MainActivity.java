@@ -43,8 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpChart() {
-        Model model = new Model();
-        Filter filter = new Filter(sensorListener, model);
+        Filter filter = new Filter(sensorListener);
         new Chart(getChartView(), filter).setUp();
     }
 

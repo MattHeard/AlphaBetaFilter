@@ -4,8 +4,8 @@ class Filter {
     SensorListener measurementSource;
     Model model;
 
-    Filter(SensorListener measurementSource, Model model) {
+    Filter(SensorListener measurementSource) {
         this.measurementSource = measurementSource;
-        this.model = model;
+        this.model = new Model();
     }
 }
