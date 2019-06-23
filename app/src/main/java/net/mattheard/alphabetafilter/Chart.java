@@ -23,6 +23,7 @@ class Chart {
     private final SensorListener sensorListener;
     private int iteration;
     private Model model;
+    private Filter filter;
 
     Chart(final AnyChartView renderer, SensorListener sensorListener, Model model) {
         set = Set.instantiate();
@@ -68,7 +69,7 @@ class Chart {
     }
 
     private void addChartData() {
-        Filter filter = new Filter(sensorListener, model);
+        filter = new Filter(sensorListener, model);
         final Runnable adder = new DataEntryAdder(this, seriesData, filter);
         executor.scheduleAtFixedRate(adder, 0, 500, TimeUnit.MILLISECONDS);
     }
