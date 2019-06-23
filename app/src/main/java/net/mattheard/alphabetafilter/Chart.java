@@ -89,12 +89,17 @@ class Chart {
     private void addDataEntry() {
         String label = Integer.toString(iteration++);
         float measurement = sensorListener.getMeasurement();
-        double modeledValue = 0.0;
+        Model model = new Model();
+        float modeledValue = model.value;
         ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
         entry.setValue("measurement", measurement);
         entry.setValue("estimate", measurement);
         seriesData.add(entry);
         removeOldData();
+    }
+
+    class Model {
+        float value = 0.0f;
     }
 
     private void removeOldData() {
