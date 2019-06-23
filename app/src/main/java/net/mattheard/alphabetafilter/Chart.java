@@ -20,9 +20,7 @@ class Chart {
     private final AnyChartView renderer;
     private final List<DataEntry> seriesData;
     private final ScheduledExecutorService executor;
-    private final SensorListener sensorListener;
     private int iteration;
-    private Model model;
     private Filter filter;
 
     Chart(final AnyChartView renderer, SensorListener sensorListener, Model model) {
@@ -31,8 +29,7 @@ class Chart {
         iteration = 0;
         executor = getNewExecutor();
         this.renderer = renderer;
-        this.sensorListener = sensorListener;
-        this.model = model;
+        filter = new Filter(sensorListener, model);
     }
 
     private ScheduledExecutorService getNewExecutor() {
@@ -69,7 +66,6 @@ class Chart {
     }
 
     private void addChartData() {
-        filter = new Filter(sensorListener, model);
         final Runnable adder = new DataEntryAdder(this, seriesData, filter);
         executor.scheduleAtFixedRate(adder, 0, 500, TimeUnit.MILLISECONDS);
     }
