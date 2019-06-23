@@ -32,6 +32,7 @@ class Chart {
         executor = getNewExecutor();
         this.renderer = renderer;
         this.sensorListener = sensorListener;
+        model = new Model();
     }
 
     private ScheduledExecutorService getNewExecutor() {
@@ -90,7 +91,6 @@ class Chart {
     private void addDataEntry() {
         String label = Integer.toString(iteration++);
         float measurement = sensorListener.getMeasurement();
-        model = new Model();
         float modeledValue = model.value;
         ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
         entry.setValue("measurement", measurement);
