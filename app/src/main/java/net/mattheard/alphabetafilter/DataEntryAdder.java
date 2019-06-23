@@ -36,16 +36,6 @@ class DataEntryAdder implements Runnable {
         removeOldData();
     }
 
-    class Filter {
-        SensorListener measurementSource;
-        Model model;
-
-        Filter(SensorListener measurementSource, Model model) {
-            this.measurementSource = measurementSource;
-            this.model = model;
-        }
-    }
-
     private void removeOldData() {
         while (seriesData.size() > getMaxSeriesLength()) {
             seriesData.remove(0);
