@@ -26,13 +26,21 @@ class DataEntryAdder implements Runnable {
     private void addDataEntry() {
         String label = Integer.toString(chart.getIteration());
         chart.incrementIteration();
-        float measurement = sensorListener.getMeasurement();
-        float modeledValue = model.value;
+        Filter filter = new Filter();
+        filter.measurementSource = sensorListener;
+        filter.model = model;
+        float measurement = filter.measurementSource.getMeasurement();
+        float modeledValue = filter.model.value;
         ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
         entry.setValue("measurement", measurement);
         entry.setValue("estimate", measurement);
         seriesData.add(entry);
         removeOldData();
+    }
+
+    class Filter {
+        SensorListener measurementSource;
+        Model model;
     }
 
     private void removeOldData() {
