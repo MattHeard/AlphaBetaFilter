@@ -99,10 +99,6 @@ class Chart {
         removeOldData();
     }
 
-    class Model {
-        float value = 0.0f;
-    }
-
     private void removeOldData() {
         while (seriesData.size() > getMaxSeriesLength()) {
             seriesData.remove(0);
