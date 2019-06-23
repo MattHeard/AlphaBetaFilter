@@ -23,13 +23,13 @@ class Chart {
     private int iteration;
     private Filter filter;
 
-    Chart(final AnyChartView renderer, SensorListener sensorListener, Model model) {
+    Chart(final AnyChartView renderer, Filter filter) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 0;
         executor = getNewExecutor();
         this.renderer = renderer;
-        filter = new Filter(sensorListener, model);
+        this.filter = filter;
     }
 
     private ScheduledExecutorService getNewExecutor() {

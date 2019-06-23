@@ -44,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpChart() {
         Model model = new Model();
-        new Chart(getChartView(), sensorListener, model).setUp();
+        Filter filter = new Filter(sensorListener, model);
+        new Chart(getChartView(), filter).setUp();
     }
 
     private AnyChartView getChartView() {
