@@ -76,7 +76,8 @@ class Chart {
             }
 
             private void addDataEntry() {
-                String label = Integer.toString(iteration++);
+                String label = Integer.toString(iteration);
+                iteration++;
                 float measurement = sensorListener.getMeasurement();
                 float modeledValue = model.value;
                 ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
