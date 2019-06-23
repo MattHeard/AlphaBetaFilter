@@ -23,6 +23,7 @@ class Chart {
     private final ScheduledExecutorService executor;
     private final SensorListener sensorListener;
     private int iteration;
+    private Model model;
 
     Chart(final AnyChartView renderer, SensorListener sensorListener) {
         set = Set.instantiate();
@@ -89,7 +90,7 @@ class Chart {
     private void addDataEntry() {
         String label = Integer.toString(iteration++);
         float measurement = sensorListener.getMeasurement();
-        Model model = new Model();
+        model = new Model();
         float modeledValue = model.value;
         ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
         entry.setValue("measurement", measurement);
