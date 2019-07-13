@@ -4,8 +4,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -62,19 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private void setUpSensorsSpinner() {
         Spinner spinner = getSensorsSpinner();
         spinner.setAdapter(getSensorsAdapter());
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Sensor sensor = getSensors().get(position);
-                sensorListener.changeSensor(sensor);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         setUpSensorListener();
+        spinner.setOnItemSelectedListener(new SensorSelectionListener(getSensors(), sensorListener));
     }
 
     private Spinner getSensorsSpinner() {
