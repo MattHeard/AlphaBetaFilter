@@ -4,8 +4,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,30 +26,13 @@ public class MainActivity extends AppCompatActivity {
         model = new Model();
         setUpInitialModelValueField();
         setUpSensorsSpinner();
-        setUpSensorListener();
         setUpChart();
     }
 
     private void setUpInitialModelValueField() {
         TextView field = findViewById(R.id.initialValueEstimateField);
-        field.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                try {
-                    model.value = Float.parseFloat(s.toString());
-                } catch (NumberFormatException e) {
-                    // Leave model value unchanged
-                }
-            }
-        });
+        final Model model = this.model;
+        field.addTextChangedListener(new InitialModelValueFieldListener(model));
     }
 
     private void setUpSensorListener() {
@@ -93,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        setUpSensorListener();
     }
 
     private Spinner getSensorsSpinner() {
