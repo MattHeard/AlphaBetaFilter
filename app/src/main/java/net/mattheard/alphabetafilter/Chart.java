@@ -67,8 +67,11 @@ class Chart {
 
     private void addChartData() {
         final Runnable adder = new DataEntryAdder(this, seriesData, filter);
-        int period = 500;
-        executor.scheduleAtFixedRate(adder, 0, period, TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(adder, 0, getPeriod(), TimeUnit.MILLISECONDS);
+    }
+
+    private int getPeriod() {
+        return 500;
     }
 
     void incrementIteration() {
