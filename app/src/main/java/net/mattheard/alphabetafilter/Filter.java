@@ -4,9 +4,9 @@ class Filter {
     private Measurer measurementSource;
     private Model model;
 
-    Filter(Measurer measurementSource) {
+    Filter(Measurer measurementSource, Model model) {
         this.measurementSource = measurementSource;
-        this.model = new Model();
+        this.model = model;
     }
 
     int getPeriod() {

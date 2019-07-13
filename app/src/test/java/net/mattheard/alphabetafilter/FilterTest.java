@@ -21,7 +21,8 @@ public class FilterTest {
 
     private Filter getFilterWithStaticMeasurement(float measurement) {
         Measurer measurer = getStaticMeasurer(measurement);
-        return new Filter(measurer);
+        Model model = new Model();
+        return new Filter(measurer, model);
     }
 
     private Measurer getStaticMeasurer(final float measurement) {
