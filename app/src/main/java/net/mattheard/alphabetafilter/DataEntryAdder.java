@@ -21,6 +21,10 @@ class DataEntryAdder implements Runnable {
         addDataEntry();
     }
 
+    int getPeriod() {
+        return 500;
+    }
+
     private void addDataEntry() {
         String label = Integer.toString(chart.getIteration());
         chart.incrementIteration();
