@@ -35,4 +35,19 @@ public class FilterTest {
 
         assertEquals(null, 500, actualPeriod);
     }
+
+    @Test
+    public void testFirstModelValue() {
+        Measurer measurer = new Measurer() {
+            @Override
+            public float getMeasurement() {
+                return 0;
+            }
+        };
+        Filter filter = new Filter(measurer);
+
+        final float actualModeledValue = filter.getModeledValue();
+
+        assertEquals(null, 0, actualModeledValue, 0.1f);
+    }
 }
