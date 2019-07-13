@@ -4,10 +4,13 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.anychart.AnyChartView;
 
@@ -15,16 +18,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
     private SensorListener sensorListener;
+    private Model model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        model = new Model();
+        setUpInitialModelValueField();
         setUpSensorsSpinner();
         setUpSensorListener();
         setUpChart();
+    }
+
+    private void setUpInitialModelValueField() {
+        TextView field = findViewById(R.id.initialValueEstimateField);
+        field.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    model.value = Float.parseFloat(s.toString());
+                } catch (NumberFormatException e) {
+                    // Leave model value unchanged
+                }
+            }
+        });
     }
 
     private void setUpSensorListener() {
@@ -43,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpChart() {
-        Model model = new Model();
         Filter filter = new Filter(sensorListener, model);
         new Chart(getChartView(), filter).setUp();
     }
