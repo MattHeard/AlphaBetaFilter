@@ -1,10 +1,10 @@
 package net.mattheard.alphabetafilter;
 
 class Filter {
-    private SensorListener measurementSource;
+    private Measurer measurementSource;
     private Model model;
 
-    Filter(SensorListener measurementSource) {
+    Filter(Measurer measurementSource) {
         this.measurementSource = measurementSource;
         this.model = new Model();
     }
