@@ -22,7 +22,7 @@ class DataEntryAdder implements Runnable {
     }
 
     int getPeriod() {
-        return 500;
+        return filter.getPeriod();
     }
 
     private void addDataEntry() {

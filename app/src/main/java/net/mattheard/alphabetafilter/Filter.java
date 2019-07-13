@@ -9,6 +9,10 @@ class Filter {
         this.model = new Model();
     }
 
+    int getPeriod() {
+        return 500;
+    }
+
     float getMeasurement() {
         return measurementSource.getMeasurement();
     }
