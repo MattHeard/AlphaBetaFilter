@@ -8,28 +8,34 @@ public class FilterTest {
     @Test
     public void testGetMeasurement() {
         final float expectedMeasurement = 123.45f;
-        Measurer measurer = new Measurer() {
-            @Override
-            public float getMeasurement() {
-                return expectedMeasurement;
-            }
-        };
-        Filter filter = new Filter(measurer);
+        Filter filter = getFilterWithStaticMeasurement(expectedMeasurement);
 
         final float actualMeasurement = filter.getMeasurement();
 
         assertEquals(null, expectedMeasurement, actualMeasurement, 0.1f);
     }
 
-    @Test
-    public void testGetPeriod() {
-        Measurer measurer = new Measurer() {
+    private Filter getFilterWithStaticMeasurement() {
+        return getFilterWithStaticMeasurement(0);
+    }
+
+    private Filter getFilterWithStaticMeasurement(float measurement) {
+        Measurer measurer = getStaticMeasurer(measurement);
+        return new Filter(measurer);
+    }
+
+    private Measurer getStaticMeasurer(final float measurement) {
+        return new Measurer() {
             @Override
             public float getMeasurement() {
-                return 0;
+                return measurement;
             }
         };
-        Filter filter = new Filter(measurer);
+    }
+
+    @Test
+    public void testGetPeriod() {
+        Filter filter = getFilterWithStaticMeasurement();
 
         final int actualPeriod = filter.getPeriod();
 
@@ -38,13 +44,17 @@ public class FilterTest {
 
     @Test
     public void testFirstModelValue() {
-        Measurer measurer = new Measurer() {
-            @Override
-            public float getMeasurement() {
-                return 0;
-            }
-        };
-        Filter filter = new Filter(measurer);
+        Filter filter = getFilterWithStaticMeasurement();
+
+        final float actualModeledValue = filter.getModeledValue();
+
+        assertEquals(null, 0, actualModeledValue, 0.1f);
+    }
+
+    @Test
+    public void testSecondModelValue() {
+        Filter filter = getFilterWithStaticMeasurement();
+        filter.getModeledValue();
 
         final float actualModeledValue = filter.getModeledValue();
 
