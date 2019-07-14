@@ -17,19 +17,15 @@ import java.util.concurrent.TimeUnit;
 
 class Chart {
     private final Set set;
-    private final AnyChartView renderer;
     private final List<DataEntry> seriesData;
     private final ScheduledExecutorService executor;
     private int iteration;
-    private Filter filter;
 
     Chart(final AnyChartView renderer, Filter filter) {
         set = Set.instantiate();
         seriesData = new ArrayList<>();
         iteration = 0;
         executor = getNewExecutor();
-        this.renderer = renderer;
-        this.filter = filter;
         Cartesian chart = getNewChart();
         addLines(chart);
         renderer.setChart(chart);

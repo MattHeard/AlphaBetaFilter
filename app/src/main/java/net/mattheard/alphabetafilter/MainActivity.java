@@ -49,12 +49,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setUpChart() {
-        Filter filter = new Filter(sensorListener, model);
-        new Chart(getChartView(), filter);
+        new Chart(getChartView(), getFilter());
     }
 
     private AnyChartView getChartView() {
         return findViewById(R.id.chart);
+    }
+
+    private Filter getFilter() {
+        return new Filter(sensorListener, model);
     }
 
     private void setUpSensorsSpinner() {
