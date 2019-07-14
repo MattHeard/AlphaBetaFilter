@@ -1,6 +1,8 @@
 package net.mattheard.alphabetafilter;
 
 class Filter implements Runnable {
+    private static final float MILLISECONDS_PER_SECOND = 1000f;
+
     private Measurer measurementSource;
     private Model model;
     private FilterObserver observer;
@@ -40,7 +42,15 @@ class Filter implements Runnable {
     }
 
     private void updateModeledValue() {
-        modeledValue = model.value + (model.rateOfChange / 2f);
+        modeledValue = model.value + getNormalisedModeledRateOfChange();
+    }
+
+    private float getNormalisedModeledRateOfChange() {
+        return model.rateOfChange / getFrequency();
+    }
+
+    private float getFrequency() {
+        return MILLISECONDS_PER_SECOND / getPeriod();
     }
 
     private void updateEstimatedValue() {
