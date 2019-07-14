@@ -6,13 +6,33 @@ import static org.junit.Assert.assertEquals;
 
 public class FilterTest {
     @Test
-    public void testGetMeasurement() {
+    public void testFirstTick() {
+        final float expectedModeledValue = 234.56f;
         final float expectedMeasurement = 123.45f;
-        Filter filter = getFilterWithStaticMeasurement(expectedMeasurement);
+        Measurer measurer = getStaticMeasurer(expectedMeasurement);
+        Model model = new Model();
+        model.value = expectedModeledValue;
+        Filter filter = new Filter(measurer, model);
+        TestFilterObserver observer = new TestFilterObserver();
+        filter.setObserver(observer);
 
-        final float actualMeasurement = filter.getMeasurement();
+        filter.tick();
 
-        assertEquals(null, expectedMeasurement, actualMeasurement, 0.1f);
+        assertEquals(null, expectedModeledValue, observer.actualModeledValue, 0.1f);
+        assertEquals(null, expectedMeasurement, observer.actualMeasurement, 0.1f);
+    }
+
+    class TestFilterObserver implements FilterObserver {
+        float actualModeledValue;
+        float actualMeasurement;
+        float actualEstimatedValue;
+
+        @Override
+        public void notify(float modeledValue, float measurement, float estimatedValue) {
+            actualModeledValue = modeledValue;
+            actualMeasurement = measurement;
+            actualEstimatedValue = estimatedValue;
+        }
     }
 
     private Filter getFilterWithStaticMeasurement() {

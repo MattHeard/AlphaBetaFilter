@@ -23,14 +23,14 @@ class Filter implements Runnable {
         tick();
     }
 
-    private void tick() {
+    void tick() {
         float modeledValue = getModeledValue();
         float measurement = getMeasurement();
         float estimatedValue = getEstimatedValue();
         observer.notify(modeledValue, measurement, estimatedValue);
     }
 
-    float getMeasurement() {
+    private float getMeasurement() {
         return measurementSource.getMeasurement();
     }
 
