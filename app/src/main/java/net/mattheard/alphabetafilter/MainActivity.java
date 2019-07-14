@@ -23,14 +23,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         model = new Model();
         setUpInitialModelValueField();
+        setUpInitialModelChangeField();
         setUpSensorsSpinner();
         setUpChart();
     }
 
     private void setUpInitialModelValueField() {
         TextView field = findViewById(R.id.initialValueEstimateField);
-        final Model model = this.model;
-        field.addTextChangedListener(new InitialModelValueFieldListener(model));
+        field.addTextChangedListener(new InitialModelValueFieldListener(this.model));
+    }
+
+    private void setUpInitialModelChangeField() {
+        TextView field = findViewById(R.id.initialChangeEstimateField);
+        field.addTextChangedListener(new InitialModelChangeFieldListener(this.model));
     }
 
     private void setUpSensorListener() {

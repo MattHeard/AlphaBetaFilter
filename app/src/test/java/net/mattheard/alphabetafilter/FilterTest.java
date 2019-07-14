@@ -50,11 +50,14 @@ public class FilterTest {
         Filter filter = new Filter(measurer, model);
         TestFilterObserver observer = new TestFilterObserver();
         filter.setObserver(observer);
-        filter.tick();
 
         filter.tick();
 
         assertEquals(null, 244.56f, observer.actualModeledValue, 0.1f);
+
+        filter.tick();
+
+        assertEquals(null, 254.56f, observer.actualModeledValue, 0.1f);
     }
 
     class TestFilterObserver implements FilterObserver {

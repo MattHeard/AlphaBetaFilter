@@ -7,7 +7,6 @@ class Filter implements Runnable {
     private Model model;
     private FilterObserver observer;
     private float measurement;
-    private float modeledValue;
 
     Filter(Measurer measurementSource, Model model) {
         this.measurementSource = measurementSource;
@@ -42,7 +41,7 @@ class Filter implements Runnable {
     }
 
     private void updateModeledValue() {
-        modeledValue = model.value + getNormalisedModeledRateOfChange();
+        model.value = model.value + getNormalisedModeledRateOfChange();
     }
 
     private float getNormalisedModeledRateOfChange() {
@@ -61,7 +60,7 @@ class Filter implements Runnable {
     }
 
     private float getModeledValue() {
-        return modeledValue;
+        return model.value;
     }
 
     private float getEstimatedValue() {
