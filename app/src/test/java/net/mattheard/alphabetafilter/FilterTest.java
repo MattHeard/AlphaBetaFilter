@@ -40,6 +40,23 @@ public class FilterTest {
         assertEquals(null, expectedMeasurement, observer.actualMeasurement, 0.1f);
     }
 
+    @Test
+    public void testModelWithRateOfChangeOf2() {
+        final float expectedModeledValue = 234.56f;
+        Measurer measurer = getStaticMeasurer(0f);
+        Model model = new Model();
+        model.value = expectedModeledValue;
+        model.rateOfChange = 20f;
+        Filter filter = new Filter(measurer, model);
+        TestFilterObserver observer = new TestFilterObserver();
+        filter.setObserver(observer);
+        filter.tick();
+
+        filter.tick();
+
+        assertEquals(null, 244.56f, observer.actualModeledValue, 0.1f);
+    }
+
     class TestFilterObserver implements FilterObserver {
         float actualModeledValue;
         float actualMeasurement;

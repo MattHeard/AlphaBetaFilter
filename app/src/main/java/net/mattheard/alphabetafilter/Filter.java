@@ -40,7 +40,7 @@ class Filter implements Runnable {
     }
 
     private void updateModeledValue() {
-        modeledValue = model.value;
+        modeledValue = model.value + (model.rateOfChange / 2f);
     }
 
     private void updateEstimatedValue() {
