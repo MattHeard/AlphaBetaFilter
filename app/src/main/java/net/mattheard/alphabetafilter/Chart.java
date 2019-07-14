@@ -66,9 +66,13 @@ class Chart {
     }
 
     private void addChartData() {
-        final DataEntryAdder adder = new DataEntryAdder(this, seriesData, filter);
+        final DataEntryAdder adder = getDataEntryAdder();
         filter.setObserver(adder);
         executor.scheduleAtFixedRate(filter, 0, filter.getPeriod(), TimeUnit.MILLISECONDS);
+    }
+
+    private DataEntryAdder getDataEntryAdder() {
+        return new DataEntryAdder(this, seriesData);
     }
 
     private void subscribeToNewData() {

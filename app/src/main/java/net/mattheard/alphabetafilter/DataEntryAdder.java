@@ -8,12 +8,10 @@ import java.util.List;
 class DataEntryAdder implements FilterObserver {
     private final Chart chart;
     private final List<DataEntry> seriesData;
-    private Filter filter;
 
-    DataEntryAdder(Chart chart, List<DataEntry> seriesData, Filter filter) {
+    DataEntryAdder(Chart chart, List<DataEntry> seriesData) {
         this.chart = chart;
         this.seriesData = seriesData;
-        this.filter = filter;
     }
 
     @Override
