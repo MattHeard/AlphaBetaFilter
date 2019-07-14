@@ -22,6 +22,24 @@ public class FilterTest {
         assertEquals(null, expectedMeasurement, observer.actualMeasurement, 0.1f);
     }
 
+    @Test
+    public void testSecondTick() {
+        final float expectedModeledValue = 234.56f;
+        final float expectedMeasurement = 123.45f;
+        Measurer measurer = getStaticMeasurer(expectedMeasurement);
+        Model model = new Model();
+        model.value = expectedModeledValue;
+        Filter filter = new Filter(measurer, model);
+        TestFilterObserver observer = new TestFilterObserver();
+        filter.setObserver(observer);
+        filter.tick();
+
+        filter.tick();
+
+        assertEquals(null, expectedModeledValue, observer.actualModeledValue, 0.1f);
+        assertEquals(null, expectedMeasurement, observer.actualMeasurement, 0.1f);
+    }
+
     class TestFilterObserver implements FilterObserver {
         float actualModeledValue;
         float actualMeasurement;
@@ -61,24 +79,5 @@ public class FilterTest {
         final int actualPeriod = filter.getPeriod();
 
         assertEquals(null, 500, actualPeriod);
-    }
-
-    @Test
-    public void testFirstModelValue() {
-        Filter filter = getFilterWithStaticMeasurement();
-
-        final float actualModeledValue = filter.getModeledValue();
-
-        assertEquals(null, 0, actualModeledValue, 0.1f);
-    }
-
-    @Test
-    public void testSecondModelValue() {
-        Filter filter = getFilterWithStaticMeasurement();
-        filter.getModeledValue();
-
-        final float actualModeledValue = filter.getModeledValue();
-
-        assertEquals(null, 0, actualModeledValue, 0.1f);
     }
 }
