@@ -25,7 +25,7 @@ class Filter implements Runnable {
     }
 
     void tick() {
-        measurement = getNewMeasurement();
+        updateMeasurement();
         float modeledValue = getModeledValue();
         float measurement = getMeasurement();
         float estimatedValue = getEstimatedValue();
@@ -36,8 +36,8 @@ class Filter implements Runnable {
         return measurement;
     }
 
-    private float getNewMeasurement() {
-        return measurementSource.getMeasurement();
+    private void updateMeasurement() {
+        measurement = measurementSource.getMeasurement();
     }
 
     private float getModeledValue() {
