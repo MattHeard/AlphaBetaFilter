@@ -30,18 +30,17 @@ class Chart {
         executor = getNewExecutor();
         this.renderer = renderer;
         this.filter = filter;
+        Cartesian chart = getNewChart();
+        addLines(chart);
+        renderer.setChart(chart);
+        final DataEntryAdder adder = getDataEntryAdder();
+        filter.setObserver(adder);
+        executor.scheduleAtFixedRate(filter, 0, filter.getPeriod(), TimeUnit.MILLISECONDS);
+        subscribeToNewData();
     }
 
     private ScheduledExecutorService getNewExecutor() {
         return Executors.newScheduledThreadPool(1);
-    }
-
-    void setUp() {
-        Cartesian chart = getNewChart();
-        addLines(chart);
-        renderer.setChart(chart);
-        addChartData();
-        subscribeToNewData();
     }
 
     private void addLines(Cartesian chart) {
@@ -63,12 +62,6 @@ class Chart {
 
     private Cartesian getNewChart() {
         return AnyChart.line();
-    }
-
-    private void addChartData() {
-        final DataEntryAdder adder = getDataEntryAdder();
-        filter.setObserver(adder);
-        executor.scheduleAtFixedRate(filter, 0, filter.getPeriod(), TimeUnit.MILLISECONDS);
     }
 
     private DataEntryAdder getDataEntryAdder() {

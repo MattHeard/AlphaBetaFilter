@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setUpChart() {
         Filter filter = new Filter(sensorListener, model);
-        new Chart(getChartView(), filter).setUp();
+        new Chart(getChartView(), filter);
     }
 
     private AnyChartView getChartView() {
