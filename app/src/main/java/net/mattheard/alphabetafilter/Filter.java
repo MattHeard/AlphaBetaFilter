@@ -10,15 +10,24 @@ class Filter implements Runnable {
         this.model = model;
     }
 
+    int getPeriod() {
+        return 500;
+    }
+
+    void setObserver(FilterObserver observer) {
+        this.observer = observer;
+    }
+
+    @Override
+    public void run() {
+        tick();
+    }
+
     private void tick() {
         float modeledValue = getModeledValue();
         float measurement = getMeasurement();
         float estimatedValue = getEstimatedValue();
         observer.notify(modeledValue, measurement, estimatedValue);
-    }
-
-    int getPeriod() {
-        return 500;
     }
 
     float getMeasurement() {
@@ -31,14 +40,5 @@ class Filter implements Runnable {
 
     private float getEstimatedValue() {
         return getMeasurement();
-    }
-
-    void setObserver(FilterObserver observer) {
-        this.observer = observer;
-    }
-
-    @Override
-    public void run() {
-        tick();
     }
 }

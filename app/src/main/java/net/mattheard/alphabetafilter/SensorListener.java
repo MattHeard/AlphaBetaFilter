@@ -7,21 +7,13 @@ import android.hardware.SensorManager;
 
 class SensorListener implements SensorEventListener, Measurer {
 
-    private Sensor sensor;
     private final SensorManager sensorManager;
+    private Sensor sensor;
     private float measurement;
 
     SensorListener(SensorManager sensorManager, Sensor sensor) {
         this.sensorManager = sensorManager;
         this.sensor = sensor;
-    }
-
-    void register() {
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
-    }
-
-    void unregister() {
-        sensorManager.unregisterListener(this);
     }
 
     @Override
@@ -42,5 +34,13 @@ class SensorListener implements SensorEventListener, Measurer {
         this.sensor = sensor;
         unregister();
         register();
+    }
+
+    void register() {
+        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    void unregister() {
+        sensorManager.unregisterListener(this);
     }
 }

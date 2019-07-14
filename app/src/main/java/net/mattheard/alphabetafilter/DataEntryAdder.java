@@ -16,6 +16,11 @@ class DataEntryAdder implements FilterObserver {
         this.filter = filter;
     }
 
+    @Override
+    public void notify(float modeledValue, float measurement, float estimatedValue) {
+        addDataEntry(modeledValue, measurement, estimatedValue);
+    }
+
     private void addDataEntry(float modeledValue, float measurement, float estimatedValue) {
         String label = Integer.toString(chart.getIteration());
         chart.incrementIteration();
@@ -34,10 +39,5 @@ class DataEntryAdder implements FilterObserver {
 
     private int getMaxSeriesLength() {
         return 50;
-    }
-
-    @Override
-    public void notify(float modeledValue, float measurement, float estimatedValue) {
-        addDataEntry(modeledValue, measurement, estimatedValue);
     }
 }

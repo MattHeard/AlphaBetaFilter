@@ -71,17 +71,17 @@ class Chart {
         executor.scheduleAtFixedRate(filter, 0, filter.getPeriod(), TimeUnit.MILLISECONDS);
     }
 
+    private void subscribeToNewData() {
+        final Runnable updater = new ChartDataSetUpdater(set, seriesData);
+        executor.scheduleAtFixedRate(updater, 0, 100, TimeUnit.MILLISECONDS);
+    }
+
     void incrementIteration() {
         iteration++;
     }
 
     int getIteration() {
         return iteration;
-    }
-
-    private void subscribeToNewData() {
-        final Runnable updater = new ChartDataSetUpdater(set, seriesData);
-        executor.scheduleAtFixedRate(updater, 0, 100, TimeUnit.MILLISECONDS);
     }
 
 }
