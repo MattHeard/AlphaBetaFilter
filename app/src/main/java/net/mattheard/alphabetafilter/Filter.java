@@ -4,6 +4,7 @@ class Filter implements Runnable {
     private Measurer measurementSource;
     private Model model;
     private FilterObserver observer;
+    private float measurement;
 
     Filter(Measurer measurementSource, Model model) {
         this.measurementSource = measurementSource;
@@ -24,6 +25,7 @@ class Filter implements Runnable {
     }
 
     void tick() {
+        measurement = getNewMeasurement();
         float modeledValue = getModeledValue();
         float measurement = getMeasurement();
         float estimatedValue = getEstimatedValue();
@@ -31,10 +33,14 @@ class Filter implements Runnable {
     }
 
     private float getMeasurement() {
+        return measurement;
+    }
+
+    private float getNewMeasurement() {
         return measurementSource.getMeasurement();
     }
 
-    float getModeledValue() {
+    private float getModeledValue() {
         return model.value;
     }
 
