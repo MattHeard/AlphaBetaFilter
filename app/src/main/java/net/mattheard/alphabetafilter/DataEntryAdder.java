@@ -5,7 +5,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 
 import java.util.List;
 
-class DataEntryAdder implements Runnable {
+class DataEntryAdder implements Runnable, FilterObserver {
     private final Chart chart;
     private final List<DataEntry> seriesData;
     private Filter filter;
@@ -18,21 +18,18 @@ class DataEntryAdder implements Runnable {
 
     @Override
     public void run() {
-        addDataEntry();
+        filter.tick();
     }
 
     int getPeriod() {
         return filter.getPeriod();
     }
 
-    private void addDataEntry() {
+    private void addDataEntry(float modeledValue, float measurement, float estimatedValue) {
         String label = Integer.toString(chart.getIteration());
         chart.incrementIteration();
-        float modeledValue = filter.getModeledValue();
         ValueDataEntry entry = new ValueDataEntry(label, modeledValue);
-        float measurement = filter.getMeasurement();
         entry.setValue("measurement", measurement);
-        float estimatedValue = filter.getEstimatedValue();
         entry.setValue("estimate", estimatedValue);
         seriesData.add(entry);
         removeOldData();
@@ -46,5 +43,10 @@ class DataEntryAdder implements Runnable {
 
     private int getMaxSeriesLength() {
         return 50;
+    }
+
+    @Override
+    public void notify(float modeledValue, float measurement, float estimatedValue) {
+        addDataEntry(modeledValue, measurement, estimatedValue);
     }
 }
