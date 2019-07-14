@@ -68,7 +68,7 @@ class Chart {
     private void addChartData() {
         final DataEntryAdder adder = new DataEntryAdder(this, seriesData, filter);
         filter.setObserver(adder);
-        executor.scheduleAtFixedRate(adder, 0, adder.getPeriod(), TimeUnit.MILLISECONDS);
+        executor.scheduleAtFixedRate(filter, 0, filter.getPeriod(), TimeUnit.MILLISECONDS);
     }
 
     void incrementIteration() {

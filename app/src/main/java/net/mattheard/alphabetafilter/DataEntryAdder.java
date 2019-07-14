@@ -5,7 +5,7 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 
 import java.util.List;
 
-class DataEntryAdder implements Runnable, FilterObserver {
+class DataEntryAdder implements FilterObserver {
     private final Chart chart;
     private final List<DataEntry> seriesData;
     private Filter filter;
@@ -14,15 +14,6 @@ class DataEntryAdder implements Runnable, FilterObserver {
         this.chart = chart;
         this.seriesData = seriesData;
         this.filter = filter;
-    }
-
-    @Override
-    public void run() {
-        filter.tick();
-    }
-
-    int getPeriod() {
-        return filter.getPeriod();
     }
 
     private void addDataEntry(float modeledValue, float measurement, float estimatedValue) {
